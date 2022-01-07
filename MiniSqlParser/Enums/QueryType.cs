@@ -1,10 +1,10 @@
 ﻿
 namespace MiniSqlParser
 {
-  public enum QueryType
-  {
-    Single,
-    Compound,
-    Bracketed
-  }
+    public enum QueryType
+    {
+        Single,
+        Compound,
+        Bracketed
+    }
 }

@@ -1,10 +1,10 @@
 ﻿
 namespace MiniSqlParser
 {
-  public enum QueryQuantifier
-  {
-    Any,
-    Some,
-    All
-  }
+    public enum QueryQuantifier
+    {
+        Any,
+        Some,
+        All
+    }
 }

@@ -1,12 +1,12 @@
 ﻿
 namespace MiniSqlParser
 {
-  public enum LikeOperator
-  {
-    Like,
-    Ilike,
-    Glog,
-    Match,
-    Regexp
-  }
+    public enum LikeOperator
+    {
+        Like,
+        Ilike,
+        Glog,
+        Match,
+        Regexp
+    }
 }
