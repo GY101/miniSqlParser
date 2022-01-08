@@ -33,6 +33,7 @@ grammar MiniSqlParser;
 
 options {
   language=CSharp;
+  
 }
 
 @lexer::members{
@@ -439,8 +440,6 @@ for_update_of_clause
 predicate
  : PLACEHOLDER1                                         # PhPredicate
  | PLACEHOLDER2                                         # PhPredicate
- | expr op=( '<' | '<=' | '>'  | '>=' ) expr            # BinaryOpPredicate
- | expr op=( '=' | '==' | '!=' | '<>' ) expr            # BinaryOpPredicate
  | expr {IsPostgreSql}? op=( '<@' | '@>' |  '?|' | '?&' )
    expr                                                 # BinaryOpPredicate
  | expr K_NOT?
@@ -489,6 +488,8 @@ expr
  | expr op=( '*' | '/' | '%' ) expr   # BinaryOpExpr
  | expr op=( '+' | '-' ) expr         # BinaryOpExpr
  | expr op=( '<<' | '>>' | '&' | '|' ) expr # BinaryOpExpr
+ | expr op=( '<' | '<=' | '>'  | '>=' ) expr # BinaryOpExpr
+ | expr op=( '=' | '==' | '!=' | '<>' ) expr # BinaryOpExpr
  | expr {IsPostgreSql}?
         /* '?' expr is recogify with PLACEHOLDER2. */
         /* so, currently ignore this expr.         */
@@ -672,7 +673,7 @@ identifiable_keyword
  | K_GROUP_CONCAT
 /* | K_HAVING   */
  | K_HOUR
-/* | K_IF       */
+ | K_IF       
  | K_IGNORE
  | K_ILIKE
 /* | K_IN       */

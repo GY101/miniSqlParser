@@ -59,7 +59,7 @@ namespace MiniSqlParser
             else if (opType == MiniSqlParserLexer.QRY_AMP)
             {
                 op = PredicateOperator.ExistsJsonValue3;
-            }
+            } 
             else
             {
                 throw new CannotBuildASTException("Undifined PredicateOperator is used");
