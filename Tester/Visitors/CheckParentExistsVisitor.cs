@@ -291,18 +291,6 @@ namespace Tester
             this.ParentExists(resultColumns);
         }
 
-        //void IVisitor.VisitAfter(BracketedQuery bracketedQuery) {
-        //  this.ParentExists(bracketedQuery);
-        //}
-
-        //void IVisitor.VisitAfter(CompoundQuery compoundQuery) {
-        //  this.ParentExists(compoundQuery);
-        //}
-
-        //void IVisitor.VisitAfter(SingleQuery query) {
-        //  this.ParentExists(query);
-        //}
-
         void IVisitor.VisitAfter(SingleQueryClause queryClause)
         {
             this.ParentExists(queryClause);

@@ -1,6 +1,7 @@
 ﻿using MiniSqlParser;
 using System.Collections.Generic;
 using NUnit.Framework;
+using MiniSqlParser.Visitors;
 
 namespace Tester
 {
@@ -2176,7 +2177,8 @@ namespace Tester
         [Test]
         public void Fun()
         {
-            parse("SELECT IF(1>1,2,22) FROM T", false, DBMSType.MySql);
+            //parse("SELECT a.ID1,ID2 FROM A s INNER JOIN B ON B.ID2 = s.ID3 WHERE b.id4 = s.id5 AND B IN(SELECT ID FROM B WHERE B.id = 1) AND EXISTS (SELECT ID FROM B WHERE B.id = 1 );", false, DBMSType.MySql);
+            parse("SELECT a.b FROM ( B ) a", false, DBMSType.MySql);
         }
         private string parse(Stmt ast)
         {
@@ -2196,7 +2198,7 @@ namespace Tester
         {
             var ast = MiniSqlParserAST.CreateStmts(inputText, dbmsType, forSqlAccessor);
             var stringifier = new CompactStringifier(4098, true);
-            var checkParent = new CheckParentExistsVisitor();
+            var checkParent = new ColumnTableNameCheckVisitor();
             ast.Accept(stringifier);
 
             // Parentプロパティの有無チェック
