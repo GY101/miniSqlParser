@@ -47,16 +47,16 @@ namespace MiniSqlParser.Visitors
         public override void Visit(Column column)
         {
             var alias = aliases.Peek();
-            if (column.TableAliasName != null)
+            if (!string.IsNullOrWhiteSpace(column.TableAliasName))
             {
-                alias.AddColumn(column.TableAliasName.Id);
+                alias.AddColumn(column.TableAliasName);
             }
         }
         public override void Visit(Table table)
         {
             var alias = aliases.Peek();
             alias.AddTable(table.Name);
-            if (table.HasAs)
+            if (!string.IsNullOrWhiteSpace(table.AliasName))
             {
                 alias.AddTable(table.AliasName);
             }
@@ -64,13 +64,24 @@ namespace MiniSqlParser.Visitors
         public override void VisitOnFrom(SingleQueryClause query, int offset)
         {
             var alias = aliases.Peek();
-            switch (query.From)
+            AddTable(query.From, alias);
+        }
+
+        private static void AddTable(IFromSource from, Alias alias)
+        {
+            switch (from)
             {
                 case AliasedQuery subQuery:
                     alias.AddTable(subQuery.AliasName);
                     break;
                 case BracketedSource bracketed:
                     alias.AddTable(bracketed.AliasName);
+                    break;
+                case JoinSource join:
+                    {
+                        AddTable(join.Left, alias);
+                        AddTable(join.Right, alias);
+                    }
                     break;
                 default:
                     break;

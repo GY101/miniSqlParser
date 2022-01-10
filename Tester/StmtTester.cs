@@ -5,6 +5,8 @@ using MiniSqlParser.Visitors;
 using NUnit.Framework.Internal;
 using System.Security.Cryptography;
 using System.IO;
+using Antlr4.Runtime;
+using System.Data;
 
 namespace Tester
 {
@@ -2180,18 +2182,53 @@ namespace Tester
         [Test]
         public void Fun()
         {
-            var Sql = "SELECT * FROM T;  ; ; ; ";
+            var Sql = "SELECT * FROM T a  ORDER BY a.Name ";
+            parse(Sql);
             var tr = Sql.Trim(' ', ';');
             //parse("SELECT a.ID1,ID2 FROM A s INNER JOIN B ON B.ID2 = s.ID3 WHERE b.id4 = s.id5 AND B IN(SELECT ID FROM B WHERE B.id = 1) AND EXISTS (SELECT ID FROM B WHERE B.id = 1 );", false, DBMSType.MySql);
-            parse(@"select * ,`select`.* FROM `select`   ", false, DBMSType.MySql);
+            //parse(@"select * FROM T WHERE a = @name AND b = @b ", false, DBMSType.MySql);
+
+            parse(@"SELECT
+    ship_power.gun_power
+   ,ship_info.*
+FROM
+         (SELECT
+              s.name       AS ship_name
+             ,sum(g.power) AS gun_power
+             ,max(callibr) AS max_callibr
+          FROM
+                   ships s
+              INNER JOIN ships_guns sg
+              ON  s.id = sg.ship_id
+              INNER JOIN guns g
+              ON  g.id = sg.guns_id
+          GROUP BY
+              s.name) ship_power
+    INNER JOIN (SELECT
+                    s.name AS ship_name
+                   ,sc.class_name
+                   ,sc.tonange
+                   ,sc.max_length
+                   ,sc.start_build
+                   ,sc.max_guns_size
+                FROM
+                         ships s
+                    INNER JOIN ship_class sc
+                    ON  s.class_id = sc.id) ship_info USING(
+    ship_name)
+
+ORDER BY
+    ship_power.ship_name ");
         }
 
         [Test]
         [TestCase("dml_select.sql")]
         public void Examples(string fileName)
         {
-            var sql = File.ReadAllText(Path.Combine("examples", fileName));
-            parse(sql, false, DBMSType.MySql);
+            var inputText = File.ReadAllText(Path.Combine("examples", fileName));
+            var ast = MiniSqlParserAST.CreateStmts(inputText, DBMSType.MySql, false);
+            var stringifier = new ColumnTableNameCheckVisitor();
+            ast.Accept(stringifier);
         }
         private string parse(Stmt ast)
         {
@@ -2211,10 +2248,13 @@ namespace Tester
         {
             var ast = MiniSqlParserAST.CreateStmts(inputText, dbmsType, forSqlAccessor);
             var stringifier = new CompactStringifier(4098, true);
+            var checkParent = new CheckParentExistsVisitor();
             ast.Accept(stringifier);
+
             // Parentプロパティの有無チェック
             // RootノードのParenetはnullだが、チェックの時だけダミーのオブジェクトをParentに設定する
             ast.Parent = new UNumericLiteral("1");
+            ast.Accept(checkParent);
 
             return stringifier.ToString();
         }
