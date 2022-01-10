@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MiniSqlParser.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -40,6 +41,7 @@ namespace MiniSqlParser.Visitors
                         Check(_parentAlias);
                 }
             }
+            public IEnumerable<string> UnKnowAlias => _columnTableName;
         }
         Stack<Alias> aliases = new Stack<Alias>();
         public override void Visit(Column column)
@@ -77,16 +79,22 @@ namespace MiniSqlParser.Visitors
 
         public override void VisitBefore(SingleQueryClause query)
         {
-            aliases.TryPeek(out var alias);
-            aliases.Push(new Alias(alias));
-
+            if (query.Parent is AliasedQuery)
+            {
+                aliases.Push(new Alias());
+            }
+            else
+            {
+                aliases.TryPeek(out var alias);
+                aliases.Push(new Alias(alias));
+            }
         }
         public override void VisitAfter(SingleQueryClause query)
         {
             var alias = aliases.Pop();
             if (alias.Check())
             {
-                throw new Exception("error");
+                throw new ColumnTableNameNotFoundException(query, alias.UnKnowAlias);
             }
         }
     }

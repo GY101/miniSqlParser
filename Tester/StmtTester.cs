@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 using MiniSqlParser.Visitors;
+using NUnit.Framework.Internal;
+using System.Security.Cryptography;
 
 namespace Tester
 {
@@ -2177,8 +2179,10 @@ namespace Tester
         [Test]
         public void Fun()
         {
-            //parse("SELECT a.ID1,ID2 FROM A s INNER JOIN B ON B.ID2 = s.ID3 WHERE b.id4 = s.id5 AND B IN(SELECT ID FROM B WHERE B.id = 1) AND EXISTS (SELECT ID FROM B WHERE B.id = 1 );", false, DBMSType.MySql);
-            parse("SELECT a.b FROM ( B ) a", false, DBMSType.MySql);
+//parse("SELECT a.ID1,ID2 FROM A s INNER JOIN B ON B.ID2 = s.ID3 WHERE b.id4 = s.id5 AND B IN(SELECT ID FROM B WHERE B.id = 1) AND EXISTS (SELECT ID FROM B WHERE B.id = 1 );", false, DBMSType.MySql);
+parse(@"SELECT * FROM t_emergency_data b
+INNER JOIN
+(SELECT * FROM t_emergency_data WHERE b.FId = FId)  B", false, DBMSType.MySql);
         }
         private string parse(Stmt ast)
         {
