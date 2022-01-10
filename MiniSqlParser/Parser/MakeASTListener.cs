@@ -962,7 +962,7 @@ namespace MiniSqlParser
             }
 
             ResultColumns results;
-            if (!hasWildcard)
+            if (context.result_columns() != null)
             {
                 results = (ResultColumns)_stack.Pop();
             }

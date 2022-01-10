@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Antlr4.Runtime;
+using Antlr4.Runtime.Atn;
 
 namespace MiniSqlParser
 {
@@ -68,7 +69,7 @@ namespace MiniSqlParser
             var input = new AntlrInputStream(inputStr);
             var lexer = new MiniSqlParserLexer(input);
             var tokens = new CommonTokenStream(lexer);
-            var parser = new MiniSqlParserParser(tokens);
+            var parser = new MiniSqlParserParser(tokens); 
             var astListener = new MakeASTListener(tokens, dbmsType, forSqlAccessor);
             var errorListener = new CumulativeErrorListener();
             var lexerErrorListener = new CumulativeLexerErrorListener();

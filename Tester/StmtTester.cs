@@ -4,6 +4,7 @@ using NUnit.Framework;
 using MiniSqlParser.Visitors;
 using NUnit.Framework.Internal;
 using System.Security.Cryptography;
+using System.IO;
 
 namespace Tester
 {
@@ -1313,7 +1314,7 @@ namespace Tester
                          where '{""foo"":""bar""}' <@ '{""foo"":1}'
                            and '{""foo"":""bar""}' @> '{""foo"":1}'
                            and '{""foo"":""bar""}' ?| 'a'
-                           and '{""foo"":""bar""}' ?& 'b'")
+                           and '{""foo"":""bar""}' ?& 'b'", dbmsType: DBMSType.PostgreSql)
             , Is.EqualTo(@"SELECT '[{""foo"":""bar""}]'::json->1,'[{""foo"":""bar""}]'::json->'foo'"
                        + @",'{""foo"":""bar""}'::json->>2,'{""foo"":""bar""}'::json->>'foo',"
                        + @"'{""foo"":""bar""}'::json #>'foo','{""foo"":""bar""}'::json #>>'foo',"
@@ -1333,7 +1334,7 @@ namespace Tester
                          where/*43*/ '{""foo"":""bar""}'/*44*/ <@/*45*/ '{""foo"":1}'/*46*/
                            and/*47*/ '{""foo"":""bar""}'/*48*/ @>/*49*/ '{""foo"":1}'/*50*/
                            and/*51*/ '{""foo"":""bar""}'/*52*/ ?|/*53*/ 'a'/*54*/
-                           and/*55*/ '{""foo"":""bar""}'/*56*/ ?&/*57*/ 'b'/*58*/")
+                           and/*55*/ '{""foo"":""bar""}'/*56*/ ?&/*57*/ 'b'/*58*/", dbmsType: DBMSType.PostgreSql)
             , Is.EqualTo(@"SELECT '[{""foo"":""bar""}]'/*0*/::/*1*/json/*2*/->/*3*/1/*4*/,/*5*/'[{""foo"":""bar""}]'/*6*/::/*7*/"
                        + @"json/*8*/->/*9*/'foo'/*10*/,/*11*/'{""foo"":""bar""}'/*12*/::/*13*/json/*14*/->>/*15*/2/*16*/,/*17*/'{""foo"":""bar""}'/*18*/::/*19*/"
                        + @"json/*20*/->>/*21*/'foo'/*22*/,/*23*/'{""foo"":""bar""}'/*24*/::/*25*/json/*26*/ #>/*27*/'foo'/*28*/,/*29*/"
@@ -2179,10 +2180,18 @@ namespace Tester
         [Test]
         public void Fun()
         {
-//parse("SELECT a.ID1,ID2 FROM A s INNER JOIN B ON B.ID2 = s.ID3 WHERE b.id4 = s.id5 AND B IN(SELECT ID FROM B WHERE B.id = 1) AND EXISTS (SELECT ID FROM B WHERE B.id = 1 );", false, DBMSType.MySql);
-parse(@"SELECT * FROM t_emergency_data b
-INNER JOIN
-(SELECT * FROM t_emergency_data WHERE b.FId = FId)  B", false, DBMSType.MySql);
+            var Sql = "SELECT * FROM T;  ; ; ; ";
+            var tr = Sql.Trim(' ', ';');
+            //parse("SELECT a.ID1,ID2 FROM A s INNER JOIN B ON B.ID2 = s.ID3 WHERE b.id4 = s.id5 AND B IN(SELECT ID FROM B WHERE B.id = 1) AND EXISTS (SELECT ID FROM B WHERE B.id = 1 );", false, DBMSType.MySql);
+            parse(@"select * ,`select`.* FROM `select`   ", false, DBMSType.MySql);
+        }
+
+        [Test]
+        [TestCase("dml_select.sql")]
+        public void Examples(string fileName)
+        {
+            var sql = File.ReadAllText(Path.Combine("examples", fileName));
+            parse(sql, false, DBMSType.MySql);
         }
         private string parse(Stmt ast)
         {
@@ -2202,13 +2211,10 @@ INNER JOIN
         {
             var ast = MiniSqlParserAST.CreateStmts(inputText, dbmsType, forSqlAccessor);
             var stringifier = new CompactStringifier(4098, true);
-            var checkParent = new ColumnTableNameCheckVisitor();
             ast.Accept(stringifier);
-
             // Parentプロパティの有無チェック
             // RootノードのParenetはnullだが、チェックの時だけダミーのオブジェクトをParentに設定する
             ast.Parent = new UNumericLiteral("1");
-            ast.Accept(checkParent);
 
             return stringifier.ToString();
         }

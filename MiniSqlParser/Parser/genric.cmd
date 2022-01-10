@@ -1,0 +1,1 @@
+java -Xmx1024m -jar %~dp0antlr-4.9.3-complete.jar -Dlanguage=CSharp -listener -visitor MiniSqlParser.g4

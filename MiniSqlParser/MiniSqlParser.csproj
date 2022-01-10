@@ -1,31 +1,30 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-	  <Authors>hiro80 MiniSqlParser</Authors>
-	  <Description>
-		  A simple SQL Parser, that can convert sql statements to an abstract syntax tree.
-		  Oracle,
-		  MySql,
-		  SQLite,
-		  MsSql,
-		  PostgreSql,
-		  Pervasive
-	  </Description>
-	  <PackageProjectUrl>https://github.com/hiro80/miniSqlParser</PackageProjectUrl>
-	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
-	  <PackageReleaseNotes>https://github.com/hiro80/miniSqlParser/releases</PackageReleaseNotes>
-	  <PackageTags>MiniSqlParser;SqlParser;MySql</PackageTags>
-	  <PackageId>MiniSqlParser</PackageId>
-	  <Title>MiniSqlParser</Title>
-	  <AssemblyName>MiniSqlParser</AssemblyName>
-	  <VersionPrefix>1.0.2</VersionPrefix>
-	  <TargetFrameworks>netcoreapp2.1;netcoreapp3.1;net5.0</TargetFrameworks>
-	  <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-	  <GenerateDocumentationFile>true</GenerateDocumentationFile> 
-  </PropertyGroup>
+	<PropertyGroup>
+		<Authors>hiro80 MiniSqlParser</Authors>
+		<Description>
+			A simple SQL Parser, that can convert sql statements to an abstract syntax tree.
+			Oracle,
+			MySql,
+			SQLite,
+			MsSql,
+			PostgreSql,
+			Pervasive
+		</Description>
+		<PackageProjectUrl>https://github.com/hiro80/miniSqlParser</PackageProjectUrl>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageReleaseNotes>https://github.com/hiro80/miniSqlParser/releases</PackageReleaseNotes>
+		<PackageTags>MiniSqlParser;SqlParser;MySql</PackageTags>
+		<PackageId>MiniSqlParser</PackageId>
+		<Title>MiniSqlParser</Title>
+		<AssemblyName>MiniSqlParser</AssemblyName>
+		<VersionPrefix>1.0.2</VersionPrefix>
+		<TargetFrameworks>netcoreapp2.1;netcoreapp3.1;net5.0</TargetFrameworks>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Antlr4.Runtime.Standard" Version="4.7.1" />
-  </ItemGroup>
-
+	<ItemGroup>
+		<PackageReference Include="Antlr4.Runtime.Standard" Version="4.9.3" /> 
+	</ItemGroup>  
 </Project>

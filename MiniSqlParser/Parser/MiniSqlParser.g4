@@ -294,7 +294,7 @@ query_clause
    ( K_DISTINCT | K_ALL )?
    ( {IsMsSql || IsPervasive}? K_TOP (                 UINTEGER_LITERAL
                                       | {IsMsSql}? '(' UINTEGER_LITERAL ')' ) )?
-   ( STAR | result_columns )
+   ( STAR ( COMMA result_columns)?  |  result_columns )
    ( K_FROM join_clause )?
    ( K_WHERE predicate )?
    ( groupBy_clause ( K_HAVING predicate )? )?   # SingleQueryClause
@@ -440,6 +440,8 @@ for_update_of_clause
 predicate
  : PLACEHOLDER1                                         # PhPredicate
  | PLACEHOLDER2                                         # PhPredicate
+ | expr op=( '<' | '<=' | '>'  | '>=' ) expr            # BinaryOpPredicate
+ | expr op=( '=' | '==' | '!=' | '<>' ) expr            # BinaryOpPredicate
  | expr {IsPostgreSql}? op=( '<@' | '@>' |  '?|' | '?&' )
    expr                                                 # BinaryOpPredicate
  | expr K_NOT?
@@ -612,7 +614,7 @@ table_alias
  ;
 
 column_alias
- : IDENTIFIER
+ : identifier
  ;
 
 identifier
@@ -875,9 +877,9 @@ INTERVAL_LITERAL
  ;
 
 STRING_LITERAL
- : ( N {IsOracle || IsMySql}? | 'N' {IsMsSql}? )?   '\'' ( ~'\'' | '\'\'' )* '\''
+ : ( N {IsOracle || IsMySql}? | 'N' {IsMsSql}? )?   '\'' ( ~'\'' | '\'\'' | '\\\'' )* '\''
  | ( N {IsOracle || IsMySql}? | 'N' {IsMsSql}? )? Q '\'' STRING_LITERAL_SUB  '\''
- |   '"'  ( ~'"'  | '""'   )* '"' {IsMySql && !MySqlAnsiQuotes}?
+ |   '"'  ( ~'"'  | '""' | '\\"'  )* '"' {IsMySql && !MySqlAnsiQuotes}?
  | Q '"'  STRING_LITERAL_SUB  '"' {IsMySql && !MySqlAnsiQuotes}?
  ;
 
@@ -1099,10 +1101,9 @@ INVALID_IDENTIFIER
  ;
 
 SINGLE_LINE_COMMENT
- : '--' ~[\r\n]*
-   -> channel(HIDDEN)
+ : ('--'|('-- '|'#'){IsMySql && !MySqlAnsiQuotes}?)  ~[\r\n]*
+   -> channel(HIDDEN)   
  ;
-
 PH_ASSIGN_COMMENT
  : '/**' SPACES* PLACEHOLDER1 SPACES* ASSIGN SPACES* '"' (~'"' | '""')* '"' SPACES* '*/'
    -> channel(3)
