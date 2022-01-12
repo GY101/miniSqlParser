@@ -102,7 +102,14 @@ namespace MiniSqlParser
         void VisitAfter(CollatePredicate predicate);
         void VisitBefore(BracketedPredicate predicate);
         void VisitAfter(BracketedPredicate predicate);
+        // Arguments
+        void VisitBefore(Arguments arguments);
+        void VisitAfter(Arguments arguments);
 
+        void VisitBefore(ExprArgument  expr);
+        void VisitAfter(ExprArgument  expr); 
+        void VisitBefore(PredicateArgument expr);
+        void VisitAfter(PredicateArgument expr);
         // Clauses
         void VisitBefore(Assignment assignment);
         void VisitAfter(Assignment assignment);

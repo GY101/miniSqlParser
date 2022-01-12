@@ -1018,6 +1018,36 @@ namespace Tester
             this.ParentExists(insertStmt);
         }
 
+        public void VisitBefore(Arguments arguments)
+        {
+            this.ParentExists(arguments);
+        }
+
+        public void VisitAfter(Arguments arguments)
+        {
+            this.ParentExists(arguments);
+        }
+
+        public void VisitBefore(ExprArgument expr)
+        {
+            this.ParentExists(expr);
+        }
+
+        public void VisitAfter(ExprArgument expr)
+        {
+            this.ParentExists(expr);
+        }
+
+        public void VisitBefore(PredicateArgument expr)
+        {
+            this.ParentExists(expr);
+        }
+
+        public void VisitAfter(PredicateArgument expr)
+        {
+            this.ParentExists(expr);
+        }
+
         #endregion
 
         bool IVisitor.VisitOnFromFirstInQuery

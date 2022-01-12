@@ -346,7 +346,14 @@ value_column
 exprs
  : expr ( ',' expr )*
  ;
+argument
+: expr  # ExprArgument
+| predicate # PredicateArgument 
+;
 
+arguments
+: argument ( ',' argument )*
+;
 join_clause
  : hinted_aliased_table_name                              # TableSource
  | aliased_query                                          # SubQuerySource
@@ -510,43 +517,43 @@ expr
    K_END                              # Case1Expr
  | K_CASE ( K_WHEN predicate K_THEN expr )+
           (K_ELSE expr)?
-   K_END                              # Case2Expr
+   K_END                              # Case2Expr 
  ;
 
 substring_function
  : ( K_SUBSTRING | K_SUBSTR)
-  '(' expr ( ',' | K_FROM ) expr ( ( ',' | K_FOR ) expr )? ')'
+  '(' argument ( ',' | K_FROM ) argument ( ( ',' | K_FOR ) argument )? ')'
  ;
 
 extract_function
  : K_EXTRACT
-  '(' datetimeField ( ',' | K_FROM ) expr ')'
+  '(' datetimeField ( ',' | K_FROM ) argument ')'
  ;
 
 aggregate_function1
  : ( K_COUNT | K_SUM | K_AVG | {IsSQLite}? K_TOTAL | {IsMsSql || IsPervasive}? K_COUNT_BIG )
-   '(' ( K_ALL | K_DISTINCT )? ( expr | STAR ) ')'
+   '(' ( K_ALL | K_DISTINCT )? ( argument | STAR ) ')'
  ;
 
 aggregate_function2
- : ( K_MAX | K_MIN ) '(' expr ')'
- | {IsOracle || IsPostgreSql}? K_CORR         '(' expr ',' expr ')'
- | {IsSQLite}?                 K_GROUP_CONCAT '(' expr ( ',' expr )? ')'
- | {IsOracle || IsPostgreSql || IsMySql}? ( K_STDDEV_POP | K_VAR_POP )  '(' expr ')'
- | {IsMsSql  || IsPervasive }?            ( K_STDEVP | K_VAR | K_VARP ) '(' expr ')'
- | {IsMsSql  || IsPervasive }?            K_STDEV    '(' expr ')'
- | {IsOracle || IsPostgreSql || IsMySql}? K_VARIANCE '(' expr ')'
- | {IsOracle || IsPostgreSql || IsMySql}? K_STDDEV   '(' expr ')'
- | {IsOracle}? K_MEDIAN '(' expr ')'
+ : ( K_MAX | K_MIN ) '(' argument ')'
+ | {IsOracle || IsPostgreSql}? K_CORR         '(' argument ',' argument ')'
+ | {IsSQLite}?                 K_GROUP_CONCAT '(' argument ( ',' argument )? ')'
+ | {IsOracle || IsPostgreSql || IsMySql}? ( K_STDDEV_POP | K_VAR_POP )  '(' argument ')'
+ | {IsMsSql  || IsPervasive }?            ( K_STDEVP | K_VAR | K_VARP ) '(' argument ')'
+ | {IsMsSql  || IsPervasive }?            K_STDEV    '(' argument ')'
+ | {IsOracle || IsPostgreSql || IsMySql}? K_VARIANCE '(' argument ')'
+ | {IsOracle || IsPostgreSql || IsMySql}? K_STDDEV   '(' argument ')'
+ | {IsOracle}? K_MEDIAN '(' argument ')'
  ;
 
 window_function
- : function_name '(' ( K_ALL | K_DISTINCT )? ( exprs | STAR )? ')'
+ : function_name '(' ( K_ALL | K_DISTINCT )? ( arguments | STAR )? ')'
    K_OVER '(' partitionBy_clause? orderBy_clause ')'
  ;
 
 generic_function
- : function_name '(' exprs? ')'
+ : function_name '(' arguments? ')'
  ;
 
 

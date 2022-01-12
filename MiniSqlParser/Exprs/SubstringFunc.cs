@@ -5,8 +5,8 @@ namespace MiniSqlParser
     {
         public string Name { get; set; }
 
-        private Expr _argument1;
-        public Expr Argument1
+        private Argument _argument1;
+        public Argument Argument1
         {
             get
             {
@@ -19,8 +19,8 @@ namespace MiniSqlParser
             }
         }
 
-        private Expr _argument2;
-        public Expr Argument2
+        private Argument _argument2;
+        public Argument Argument2
         {
             get
             {
@@ -33,8 +33,8 @@ namespace MiniSqlParser
             }
         }
 
-        private Expr _argument3;
-        public Expr Argument3
+        private Argument _argument3;
+        public Argument Argument3
         {
             get
             {
@@ -51,9 +51,9 @@ namespace MiniSqlParser
         public bool Separator2IsComma { get; set; }
 
         public SubstringFunc(string name
-                            , Expr argument1
-                            , Expr argument2
-                            , Expr argument3
+                            , Argument argument1
+                            , Argument argument2
+                            , Argument argument3
                             , bool separator1IsComma
                             , bool separator2IsComma)
         {
@@ -67,9 +67,9 @@ namespace MiniSqlParser
         }
 
         internal SubstringFunc(string name
-                             , Expr argument1
-                             , Expr argument2
-                             , Expr argument3
+                             , Argument argument1
+                             , Argument argument2
+                             , Argument argument3
                              , bool separator1IsComma
                              , bool separator2IsComma
                              , Comments comments)

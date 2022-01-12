@@ -68,8 +68,8 @@ namespace MiniSqlParser
             }
         }
 
-        private Exprs _arguments;
-        public Exprs Arguments
+        private Arguments _arguments;
+        public Arguments Arguments
         {
             get
             {
@@ -83,7 +83,7 @@ namespace MiniSqlParser
         }
 
         public FuncExpr(Identifier name
-                      , Exprs arguments)
+                      , Arguments arguments)
           : this(null, null, null, name, arguments)
         {
         }
@@ -92,7 +92,7 @@ namespace MiniSqlParser
                       , Identifier databaseName
                       , Identifier schemaName
                       , Identifier name
-                      , Exprs arguments)
+                      , Arguments arguments)
         {
             this.Comments = new Comments(3);
             this.ServerName = serverName;
@@ -106,7 +106,7 @@ namespace MiniSqlParser
                         , Identifier databaseName
                         , Identifier schemaName
                         , Identifier name
-                        , Exprs arguments
+                        , Arguments arguments
                         , Comments comments)
         {
             this.Comments = comments;

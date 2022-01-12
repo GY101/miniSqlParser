@@ -102,7 +102,9 @@ namespace MiniSqlParser
         virtual public void VisitAfter(CollatePredicate predicate) { }
         virtual public void VisitBefore(BracketedPredicate predicate) { }
         virtual public void VisitAfter(BracketedPredicate predicate) { }
-
+        // Arguments
+        virtual public void VisitBefore(Arguments arguments) { }
+        virtual public void VisitAfter(Arguments arguments) { }
         // Clauses
         virtual public void VisitBefore(Assignment assignment) { }
         virtual public void VisitAfter(Assignment assignment) { }
@@ -228,6 +230,22 @@ namespace MiniSqlParser
 
         virtual public void VisitBefore(NullStmt nullStmt) { }
         virtual public void VisitAfter(NullStmt nullStmt) { }
+
+        virtual public void VisitBefore(ExprArgument expr)
+        {
+        }
+
+        virtual public void VisitAfter(ExprArgument expr)
+        {
+        }
+
+        virtual public void VisitBefore(PredicateArgument expr)
+        {
+        }
+
+        virtual public void VisitAfter(PredicateArgument expr)
+        {
+        }
 
         virtual public bool VisitOnFromFirstInQuery { get { return false; } }
     }

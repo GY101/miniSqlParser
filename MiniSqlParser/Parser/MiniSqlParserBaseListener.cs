@@ -536,6 +536,46 @@ public partial class MiniSqlParserBaseListener : IMiniSqlParserListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitExprs([NotNull] MiniSqlParserParser.ExprsContext context) { }
 	/// <summary>
+	/// Enter a parse tree produced by the <c>ExprArgument</c>
+	/// labeled alternative in <see cref="MiniSqlParserParser.argument"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterExprArgument([NotNull] MiniSqlParserParser.ExprArgumentContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>ExprArgument</c>
+	/// labeled alternative in <see cref="MiniSqlParserParser.argument"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitExprArgument([NotNull] MiniSqlParserParser.ExprArgumentContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>PredicateArgument</c>
+	/// labeled alternative in <see cref="MiniSqlParserParser.argument"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterPredicateArgument([NotNull] MiniSqlParserParser.PredicateArgumentContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>PredicateArgument</c>
+	/// labeled alternative in <see cref="MiniSqlParserParser.argument"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitPredicateArgument([NotNull] MiniSqlParserParser.PredicateArgumentContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="MiniSqlParserParser.arguments"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterArguments([NotNull] MiniSqlParserParser.ArgumentsContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="MiniSqlParserParser.arguments"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitArguments([NotNull] MiniSqlParserParser.ArgumentsContext context) { }
+	/// <summary>
 	/// Enter a parse tree produced by the <c>JoinSource</c>
 	/// labeled alternative in <see cref="MiniSqlParserParser.join_clause"/>.
 	/// <para>The default implementation does nothing.</para>

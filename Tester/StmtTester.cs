@@ -2187,7 +2187,17 @@ namespace Tester
             var tr = Sql.Trim(' ', ';');
             //parse("SELECT a.ID1,ID2 FROM A s INNER JOIN B ON B.ID2 = s.ID3 WHERE b.id4 = s.id5 AND B IN(SELECT ID FROM B WHERE B.id = 1) AND EXISTS (SELECT ID FROM B WHERE B.id = 1 );", false, DBMSType.MySql);
             //parse(@"select * FROM T WHERE a = @name AND b = @b ", false, DBMSType.MySql);
-
+            parse(@" 
+SELECT FPlateType,
+count(*) AS FOrderCount,
+sum(IF(feed.FOrderId is NULL,0,1)) AS FRepliedOrderCount,
+sum( FUrgency IN(0,2) ) AS FEmergencyCount,
+count(DISTINCT FAccountId) as FOrderUserCount 
+FROM t_work_order w LEFT JOIN (SELECT DISTINCT FOrderId FROM t_work_order_feedback feed WHERE feed.FType=1 AND feed.FFeedbackTime<@endTime AND feed.FFeedbackTime>=@startTime) feed on w.FId=feed.FOrderId
+WHERE
+w.FCreateTime >=@startTime AND w.FCreateTime <@endTime
+GROUP BY
+w.FPlateType;");
             parse(@"SELECT
     ship_power.gun_power
    ,ship_info.*

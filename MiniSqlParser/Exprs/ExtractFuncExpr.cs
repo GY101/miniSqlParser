@@ -6,7 +6,7 @@ namespace MiniSqlParser
         public ExtractFuncExpr(string name
                               , DateTimeField dateTimeField
                               , bool separatorIsComma
-                              , Expr argument)
+                              , Argument argument)
         {
             this.Comments = new Comments(5);
             this.Name = name;
@@ -18,7 +18,7 @@ namespace MiniSqlParser
         internal ExtractFuncExpr(string name
                                 , DateTimeField dateTimeField
                                 , bool separatorIsComma
-                                , Expr argument
+                                , Argument argument
                                 , Comments comments)
         {
             this.Comments = comments;
@@ -32,8 +32,8 @@ namespace MiniSqlParser
         public DateTimeField DateTimeField { get; set; }
         public bool SeparatorIsComma { get; set; }
 
-        private Expr _argument;
-        public Expr Argument
+        private Argument _argument;
+        public Argument Argument
         {
             get
             {

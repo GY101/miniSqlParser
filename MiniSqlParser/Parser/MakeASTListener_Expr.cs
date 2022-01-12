@@ -126,7 +126,7 @@ namespace MiniSqlParser
             }
             else
             {
-                var argument1 = (Expr)_stack.Pop();
+                var argument1 = (Argument)_stack.Pop();
                 _stack.Push(new AggregateFuncExpr(name, quantifier, false, argument1, null, comments));
             }
         }
@@ -144,17 +144,17 @@ namespace MiniSqlParser
                                     , context.K_STDDEV()
                                     , context.K_MEDIAN()
                                     );
-            Expr argument1 = null;
-            Expr argument2 = null;
-            var countArgs = context.expr().Length;
+            Argument argument1 = null;
+            Argument argument2 = null;
+            var countArgs = context.argument().Length;
             if (countArgs == 1)
             {
-                argument1 = (Expr)_stack.Pop();
+                argument1 = (Argument)_stack.Pop();
             }
             else if (countArgs == 2)
             {
-                argument1 = (Expr)_stack.Pop();
-                argument2 = (Expr)_stack.Pop();
+                argument1 = (Argument)_stack.Pop();
+                argument2 = (Argument)_stack.Pop();
             }
             else
             {
@@ -202,10 +202,10 @@ namespace MiniSqlParser
                 partitionBy = (PartitionBy)_stack.Pop();
             }
 
-            Exprs arguments = null;
-            if (context.exprs() != null)
+            Arguments arguments = null;
+            if (context.arguments() != null)
             {
-                arguments = (Exprs)_stack.Pop();
+                arguments = (Arguments)_stack.Pop();
             }
 
             _stack.Push(new WindowFuncExpr(serverName
@@ -235,10 +235,10 @@ namespace MiniSqlParser
                 schemaName = this.GetIdentifier(context.function_name().qualified_schema_name().n);
             }
             var name = this.GetIdentifier(context.function_name().identifier());
-            Exprs arguments = null;
-            if (context.exprs() != null)
+            Arguments arguments = null;
+            if (context.arguments() != null)
             {
-                arguments = (Exprs)_stack.Pop();
+                arguments = (Arguments)_stack.Pop();
             }
             _stack.Push(new FuncExpr(serverName, databaseName, schemaName, name, arguments, comments));
         }
@@ -476,16 +476,16 @@ namespace MiniSqlParser
         {
             var comments = this.GetComments(context);
 
-            Expr arg3 = null;
+            Argument arg3 = null;
             bool isComma2 = false;
-            if (context.expr().Length == 3)
+            if (context.argument().Length == 3)
             {
-                arg3 = (Expr)_stack.Pop();
+                arg3 = (Argument)_stack.Pop();
                 isComma2 = context.K_FOR() == null;
             }
-            Expr arg2 = (Expr)_stack.Pop();
+            Argument arg2 = (Argument)_stack.Pop();
             bool isComma1 = context.K_FROM() == null;
-            Expr arg1 = (Expr)_stack.Pop();
+            Argument arg1 = (Argument)_stack.Pop();
             var name = this.Coalesce(context.K_SUBSTRING(), context.K_SUBSTR());
 
             var node = new SubstringFunc(name, arg1, arg2, arg3, isComma1, isComma2, comments);
@@ -498,11 +498,11 @@ namespace MiniSqlParser
             var datetimeComments = this.GetComments(context.datetimeField());
             comments.InsertRange(2, datetimeComments);
 
-            Expr arg = null;
+            Argument arg = null;
             bool isComma = false;
-            if (context.expr() != null)
+            if (context.argument() != null)
             {
-                arg = (Expr)_stack.Pop();
+                arg = (Argument)_stack.Pop();
                 isComma = context.K_FROM() == null;
             }
             DateTimeField dt = DateTimeField.Day;

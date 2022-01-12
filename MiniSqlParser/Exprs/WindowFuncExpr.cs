@@ -101,8 +101,8 @@ namespace MiniSqlParser
             }
         }
 
-        private Exprs _arguments;
-        public Exprs Arguments
+        private Arguments _arguments;
+        public Arguments Arguments
         {
             get
             {
@@ -147,7 +147,7 @@ namespace MiniSqlParser
                             , Identifier databaseName
                             , Identifier schemaName
                             , Identifier name
-                            , Exprs arguments
+                            , Arguments arguments
                             , PartitionBy partitionBy
                             , OrderBy orderBy)
         {
@@ -181,7 +181,7 @@ namespace MiniSqlParser
             this.Name = name;
             this.Quantifier = quantifier;
             this.HasWildcard = true;
-            this.Arguments = new Exprs();
+            this.Arguments = new Arguments();
             this.PartitionBy = partitionBy;
             this.OrderBy = orderBy;
             //
@@ -195,7 +195,7 @@ namespace MiniSqlParser
                               , Identifier name
                               , QuantifierType quantifier
                               , bool hasWildcard
-                              , Exprs arguments
+                              , Arguments arguments
                               , PartitionBy partitionBy
                               , OrderBy orderBy
                               , Comments comments)

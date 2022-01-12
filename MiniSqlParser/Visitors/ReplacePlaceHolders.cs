@@ -232,39 +232,39 @@ namespace MiniSqlParser
 
 
         public override void VisitAfter(AggregateFuncExpr expr)
-        {
-            if (IsPlaceHolderExpr(expr.Argument1))
-            {
-                expr.Argument1 = Place((PlaceHolderExpr)expr.Argument1);
-            }
-            if (IsPlaceHolderExpr(expr.Argument2))
-            {
-                expr.Argument2 = Place((PlaceHolderExpr)expr.Argument2);
-            }
+        { 
+            PlaceArgument(expr.Argument1);
+            PlaceArgument(expr.Argument2); 
         }
 
         public override void VisitAfter(SubstringFunc expr)
         {
-            if (IsPlaceHolderExpr(expr.Argument1))
+            PlaceArgument(expr.Argument1);
+            PlaceArgument(expr.Argument2);
+            PlaceArgument(expr.Argument3); 
+        }
+
+        private void PlaceArgument(Argument argument)
+        {
+            if (argument.IsExpr)
             {
-                expr.Argument1 = Place((PlaceHolderExpr)expr.Argument1);
+                if (IsPlaceHolderExpr((Expr)argument.Node))
+                {
+                    argument.Node = Place((PlaceHolderExpr)argument.Node);
+                }
             }
-            if (IsPlaceHolderExpr(expr.Argument2))
+            else
             {
-                expr.Argument2 = Place((PlaceHolderExpr)expr.Argument2);
-            }
-            if (IsPlaceHolderExpr(expr.Argument3))
-            {
-                expr.Argument3 = Place((PlaceHolderExpr)expr.Argument3);
+                if (IsPlaceHolderPredicate((Predicate)argument.Node))
+                {
+                    argument.Node = Place((PlaceHolderPredicate)argument.Node);
+                }
             }
         }
 
         public override void VisitAfter(ExtractFuncExpr expr)
         {
-            if (IsPlaceHolderExpr(expr.Argument))
-            {
-                expr.Argument = Place((PlaceHolderExpr)expr.Argument);
-            }
+            PlaceArgument(expr.Argument); 
         }
 
         public override void VisitAfter(GroupBy groupBy)
@@ -448,7 +448,10 @@ namespace MiniSqlParser
         {
             return expr != null && expr.GetType() == typeof(PlaceHolderExpr);
         }
-
+        private bool IsExpr(INode node)
+        {
+            return node != null && node is Expr;
+        }
         protected virtual Expr Place(PlaceHolderExpr ph)
         {
             var placeHolderName = ph.LabelName;

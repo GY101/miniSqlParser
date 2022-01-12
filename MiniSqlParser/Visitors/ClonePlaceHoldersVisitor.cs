@@ -95,13 +95,13 @@ namespace MiniSqlParser
 
         public override void VisitAfter(SubstringFunc expr)
         {
-            Expr arg3 = null;
+            Argument arg3 = null;
             if (expr.Argument3 != null)
             {
-                arg3 = (Expr)_stack.Pop();
+                arg3 = (Argument)_stack.Pop();
             }
-            Expr arg2 = (Expr)_stack.Pop();
-            Expr arg1 = (Expr)_stack.Pop();
+            Argument arg2 = (Argument)_stack.Pop();
+            Argument arg1 = (Argument)_stack.Pop();
 
             if (object.ReferenceEquals(expr.Argument1, arg1) &&
                object.ReferenceEquals(expr.Argument2, arg2) &&
@@ -120,7 +120,7 @@ namespace MiniSqlParser
         }
         public override void VisitAfter(ExtractFuncExpr expr)
         {
-            Expr arg = (Expr)_stack.Pop();
+            var arg = (Argument)_stack.Pop();
 
             if (object.ReferenceEquals(expr.Argument, arg))
             {
@@ -135,15 +135,15 @@ namespace MiniSqlParser
         }
         public override void VisitAfter(AggregateFuncExpr expr)
         {
-            Expr arg2 = null;
+            Argument arg2 = null;
             if (expr.Argument2 != null)
             {
-                arg2 = (Expr)_stack.Pop();
+                arg2 = (Argument)_stack.Pop();
             }
-            Expr arg1 = null;
+            Argument arg1 = null;
             if (expr.Argument1 != null)
             {
-                arg1 = (Expr)_stack.Pop();
+                arg1 = (Argument)_stack.Pop();
             }
 
             if (object.ReferenceEquals(expr.Argument1, arg1) &&
@@ -168,10 +168,10 @@ namespace MiniSqlParser
             {
                 partitionBy = (PartitionBy)_stack.Pop();
             }
-            Exprs arg = null;
+            Arguments arg = null;
             if (expr.Arguments != null)
             {
-                arg = (Exprs)_stack.Pop();
+                arg = (Arguments)_stack.Pop();
             }
 
             if (object.ReferenceEquals(expr.Arguments, arg) &&
@@ -196,10 +196,10 @@ namespace MiniSqlParser
         }
         public override void VisitAfter(FuncExpr expr)
         {
-            Exprs args = null;
+            Arguments args = null;
             if (expr.Arguments != null)
             {
-                args = (Exprs)_stack.Pop();
+                args = (Arguments)_stack.Pop();
             }
 
             if (object.ReferenceEquals(expr.Arguments, args))

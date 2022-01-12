@@ -282,6 +282,26 @@ public interface IMiniSqlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitExprs([NotNull] MiniSqlParserParser.ExprsContext context);
 	/// <summary>
+	/// Visit a parse tree produced by the <c>ExprArgument</c>
+	/// labeled alternative in <see cref="MiniSqlParserParser.argument"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitExprArgument([NotNull] MiniSqlParserParser.ExprArgumentContext context);
+	/// <summary>
+	/// Visit a parse tree produced by the <c>PredicateArgument</c>
+	/// labeled alternative in <see cref="MiniSqlParserParser.argument"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitPredicateArgument([NotNull] MiniSqlParserParser.PredicateArgumentContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="MiniSqlParserParser.arguments"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitArguments([NotNull] MiniSqlParserParser.ArgumentsContext context);
+	/// <summary>
 	/// Visit a parse tree produced by the <c>JoinSource</c>
 	/// labeled alternative in <see cref="MiniSqlParserParser.join_clause"/>.
 	/// </summary>

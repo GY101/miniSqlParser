@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using Antlr4.Runtime;
+using Antlr4.Runtime.Misc;
 
 namespace MiniSqlParser
 {
@@ -1151,7 +1152,18 @@ namespace MiniSqlParser
             var node = new Exprs(exprs, comments);
             _stack.Push(node);
         }
-
+        public override void ExitArguments([NotNull] MiniSqlParserParser.ArgumentsContext context)
+        {
+            var comments = this.GetComments(context);
+            var exprs = new List<Argument>();
+            for (var i = context.argument().Length - 1; i >= 0; --i)
+            {
+                var expr = (Argument)_stack.Pop();
+                exprs.Insert(0, expr);
+            }
+            var node = new Arguments(exprs, comments);
+            _stack.Push(node);
+        }
         //public override void ExitSubQuerySource(MiniSqlParserParser.SubQuerySourceContext context) {
 
         //}

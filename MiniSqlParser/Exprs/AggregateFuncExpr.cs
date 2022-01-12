@@ -6,8 +6,8 @@ namespace MiniSqlParser
         public AggregateFuncExpr(string name
                                 , QuantifierType quantifier
                                 , bool wildcard
-                                , Expr argument1
-                                , Expr argument2)
+                                , Argument argument1
+                                , Argument argument2)
         {
             this.Name = name;
             this.Quantifier = quantifier;
@@ -25,8 +25,8 @@ namespace MiniSqlParser
         internal AggregateFuncExpr(string name
                                   , QuantifierType quantifier
                                   , bool wildcard
-                                  , Expr argument1
-                                  , Expr argument2
+                                  , Argument argument1
+                                  , Argument argument2
                                   , Comments comments)
         {
             this.Comments = comments;
@@ -41,8 +41,8 @@ namespace MiniSqlParser
         public QuantifierType Quantifier { get; private set; }
         public bool Wildcard { get; private set; }
 
-        private Expr _argument1;
-        public Expr Argument1
+        private Argument _argument1;
+        public Argument Argument1
         {
             get
             {
@@ -55,8 +55,8 @@ namespace MiniSqlParser
             }
         }
 
-        private Expr _argument2;
-        public Expr Argument2
+        private Argument _argument2;
+        public Argument Argument2
         {
             get
             {

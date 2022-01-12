@@ -449,6 +449,40 @@ public interface IMiniSqlParserListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitExprs([NotNull] MiniSqlParserParser.ExprsContext context);
 	/// <summary>
+	/// Enter a parse tree produced by the <c>ExprArgument</c>
+	/// labeled alternative in <see cref="MiniSqlParserParser.argument"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterExprArgument([NotNull] MiniSqlParserParser.ExprArgumentContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>ExprArgument</c>
+	/// labeled alternative in <see cref="MiniSqlParserParser.argument"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitExprArgument([NotNull] MiniSqlParserParser.ExprArgumentContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>PredicateArgument</c>
+	/// labeled alternative in <see cref="MiniSqlParserParser.argument"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterPredicateArgument([NotNull] MiniSqlParserParser.PredicateArgumentContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>PredicateArgument</c>
+	/// labeled alternative in <see cref="MiniSqlParserParser.argument"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitPredicateArgument([NotNull] MiniSqlParserParser.PredicateArgumentContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="MiniSqlParserParser.arguments"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterArguments([NotNull] MiniSqlParserParser.ArgumentsContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="MiniSqlParserParser.arguments"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitArguments([NotNull] MiniSqlParserParser.ArgumentsContext context);
+	/// <summary>
 	/// Enter a parse tree produced by the <c>JoinSource</c>
 	/// labeled alternative in <see cref="MiniSqlParserParser.join_clause"/>.
 	/// </summary>
