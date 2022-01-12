@@ -2197,7 +2197,7 @@ FROM t_work_order w LEFT JOIN (SELECT DISTINCT FOrderId FROM t_work_order_feedba
 WHERE
 w.FCreateTime >=@startTime AND w.FCreateTime <@endTime
 GROUP BY
-w.FPlateType;");
+w.FPlateType;", dbmsType: DBMSType.MySql);
             parse(@"SELECT
     ship_power.gun_power
    ,ship_info.*

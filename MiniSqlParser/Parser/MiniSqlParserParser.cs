@@ -6436,8 +6436,8 @@ public partial class MiniSqlParserParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode EQ() { return GetToken(MiniSqlParserParser.EQ, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NOT_EQ1() { return GetToken(MiniSqlParserParser.NOT_EQ1, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NOT_EQ2() { return GetToken(MiniSqlParserParser.NOT_EQ2, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode AT_LT() { return GetToken(MiniSqlParserParser.AT_LT, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode AT_GT() { return GetToken(MiniSqlParserParser.AT_GT, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode AT_LT() { return GetToken(MiniSqlParserParser.AT_LT, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode QRY_PIPE() { return GetToken(MiniSqlParserParser.QRY_PIPE, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode QRY_AMP() { return GetToken(MiniSqlParserParser.QRY_AMP, 0); }
 		public BinaryOpPredicateContext(PredicateContext context) { CopyFrom(context); }

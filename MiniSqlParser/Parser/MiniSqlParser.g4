@@ -449,7 +449,7 @@ predicate
  | PLACEHOLDER2                                         # PhPredicate
  | expr op=( '<' | '<=' | '>'  | '>=' ) expr            # BinaryOpPredicate
  | expr op=( '=' | '==' | '!=' | '<>' ) expr            # BinaryOpPredicate
- | expr {IsPostgreSql}? op=( '<@' | '@>' |  '?|' | '?&' )
+ | expr {IsPostgreSql}? op=( AT_GT | AT_LT |  QRY_PIPE | QRY_AMP )
    expr                                                 # BinaryOpPredicate
  | expr K_NOT?
    op=( K_LIKE | K_ILIKE | K_GLOB | K_MATCH | K_REGEXP )
@@ -837,10 +837,10 @@ ARROW2 : '->>';
 S_GT  : '#>';
 S_GT2 : '#>>';
 S_MINUS : '#-';
-AT_GT : '@>';
-AT_LT : '<@';
-QRY_PIPE : '?|';
-QRY_AMP  : '?&';
+AT_GT : '@>' {IsPostgreSql}?;
+AT_LT : '<@' {IsPostgreSql}?;
+QRY_PIPE : '?|' {IsPostgreSql}?;
+QRY_AMP  : '?&' {IsPostgreSql}?;
 
 
 UINTEGER_LITERAL
