@@ -2177,11 +2177,12 @@ namespace Tester
 
             // DELETE文のFROMキーワードは必須
             Assert.Throws<SqlSyntaxErrorsException>(() => parse(@"delete T where id in (1,2,3)", true));
-        }
 
+            Assert.Throws<SqlSyntaxErrorsException>(() => parse("SELECT COUNT(*) Count FROM t_emergency_data WHERE FCreateTime <= @StartTime AND FType = 1 == 1"));
+        } 
         [Test]
         public void Fun()
-        {
+        { 
             var Sql = "SELECT * FROM T a  ORDER BY a.Name ";
             parse(Sql);
             var tr = Sql.Trim(' ', ';');

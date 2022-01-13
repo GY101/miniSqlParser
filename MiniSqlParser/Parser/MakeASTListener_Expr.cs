@@ -47,7 +47,7 @@ namespace MiniSqlParser
             }
             if (this.ForSqlAccessor)
             {
-                this.AddSqlAccessorSyntaxError("SqlPodでは外部結合演算子(+)は使えません", context);
+                this.AddSqlAccessorSyntaxError("SqlPod不能使用外部耦合运算符(+)", context);
             }
             var comments = this.GetComments(context.OUTER_JOIN());
             var column = (Column)_stack.Peek();
@@ -311,38 +311,6 @@ namespace MiniSqlParser
             {
                 op = ExpOperator.DelJsonObj;
             }
-            else if(opType == MiniSqlParserLexer.ASSIGN)
-            {
-                op = ExpOperator.Equal;
-            }
-            else if (opType == MiniSqlParserLexer.NOT_EQ2)
-            {
-                op = ExpOperator.NotEqual;
-            }
-            else if (opType == MiniSqlParserLexer.LT)
-            {
-                op = ExpOperator.Less;
-            }
-            else if (opType == MiniSqlParserLexer.LT_EQ)
-            {
-                op = ExpOperator.LessOrEqual;
-            }
-            else if (opType == MiniSqlParserLexer.GT)
-            {
-                op = ExpOperator.Greater;
-            }
-            else if (opType == MiniSqlParserLexer.GT_EQ)
-            {
-                op = ExpOperator.GreaterOrEqual;
-            }
-            else if (opType == MiniSqlParserLexer.EQ)
-            {
-                op = ExpOperator.Equal2;
-            }
-            else if (opType == MiniSqlParserLexer.NOT_EQ1)
-            {
-                op = ExpOperator.NotEqual2;
-            }
             else
             {
                 throw new InvalidEnumArgumentException("Undefined ExpOperator is used"
@@ -405,11 +373,11 @@ namespace MiniSqlParser
             {
                 if (name == "?")
                 {
-                    this.AddSqlAccessorSyntaxError("SqlPodではプレースホルダに'?'を使えません", context);
+                    this.AddSqlAccessorSyntaxError("在SqlPod中，占位符被指示为 ? 不能用 ' ", context);
                 }
                 else if (name.StartsWith(":"))
                 {
-                    this.AddSqlAccessorSyntaxError("SqlPodではプレースホルダに':'を使えません", context);
+                    this.AddSqlAccessorSyntaxError("SqlPod不能对占位符使用 ':' ", context);
                 }
             }
             var node = new PlaceHolderExpr(name, comments);

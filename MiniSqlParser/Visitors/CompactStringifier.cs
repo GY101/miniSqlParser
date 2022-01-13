@@ -493,38 +493,6 @@ namespace MiniSqlParser
             {
                 this.AppendSymbol(" #-");
             }
-            else if (expr.Operator == ExpOperator.Less)
-            {
-                this.AppendSymbol(" <");
-            }
-            else if (expr.Operator == ExpOperator.LessOrEqual)
-            {
-                this.AppendSymbol(" <=");
-            }
-            else if (expr.Operator == ExpOperator.Greater)
-            {
-                this.AppendSymbol(" >");
-            }
-            else if (expr.Operator == ExpOperator.GreaterOrEqual)
-            {
-                this.AppendSymbol(" >=");
-            }
-            else if (expr.Operator == ExpOperator.Equal)
-            {
-                this.AppendSymbol(" =");
-            }
-            else if (expr.Operator == ExpOperator.Equal2)
-            {
-                this.AppendSymbol(" ==");
-            }
-            else if (expr.Operator == ExpOperator.NotEqual)
-            {
-                this.AppendSymbol(" !=");
-            }
-            else if (expr.Operator == ExpOperator.NotEqual2)
-            {
-                this.AppendSymbol(" <>");
-            }
             else
             {
                 throw new InvalidEnumArgumentException("Undefined ExpOperator is used"

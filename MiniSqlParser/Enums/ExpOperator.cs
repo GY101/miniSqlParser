@@ -17,14 +17,6 @@ namespace MiniSqlParser
       , GetJsonObjAsText  // ->>
       , GetJsonPath       // #>
       , GetJsonPathAsText // #>>
-      , DelJsonObj        // #-
-      , Less
-      , LessOrEqual
-      , Greater
-      , GreaterOrEqual
-      , Equal
-      , Equal2
-      , NotEqual
-      , NotEqual2 
+      , DelJsonObj        // #- 
     }
 }

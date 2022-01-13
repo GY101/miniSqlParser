@@ -497,8 +497,6 @@ expr
  | expr op=( '*' | '/' | '%' ) expr   # BinaryOpExpr
  | expr op=( '+' | '-' ) expr         # BinaryOpExpr
  | expr op=( '<<' | '>>' | '&' | '|' ) expr # BinaryOpExpr
- | expr op=( '<' | '<=' | '>'  | '>=' ) expr # BinaryOpExpr
- | expr op=( '=' | '==' | '!=' | '<>' ) expr # BinaryOpExpr
  | expr {IsPostgreSql}?
         /* '?' expr is recogify with PLACEHOLDER2. */
         /* so, currently ignore this expr.         */

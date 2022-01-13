@@ -105,11 +105,11 @@ namespace MiniSqlParser
             {
                 if (name == "?")
                 {
-                    this.AddSqlAccessorSyntaxError("SqlPodではプレースホルダに'?'を使えません", context);
+                    this.AddSqlAccessorSyntaxError("在SqlPod中，占位符被指示为 ? 不能用 ' ", context);
                 }
                 else if (name.StartsWith(":"))
                 {
-                    this.AddSqlAccessorSyntaxError("SqlPodではプレースホルダに':'を使えません", context);
+                    this.AddSqlAccessorSyntaxError("SqlPod不能对占位符使用':'", context);
                 }
             }
             var node = new PlaceHolderPredicate(name, comments);

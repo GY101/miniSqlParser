@@ -148,12 +148,12 @@ namespace MiniSqlParser
 
             if (this.ForSqlAccessor && !hasIntoKeyword)
             {
-                this.AddSqlAccessorSyntaxError("SqlPodではINSERT文のINTOキーワードを省略できません", context);
+                this.AddSqlAccessorSyntaxError("SqlPod不能省略INSERT语句中的INTO关键字。", context);
             }
 
             if (this.ForSqlAccessor && !hasColumnNames)
             {
-                this.AddSqlAccessorSyntaxError("SqlPodではINSERT文のテーブル列名の指定を省略できません", context);
+                this.AddSqlAccessorSyntaxError("SqlPod不能省略对INSERT语句表列名的指定。", context);
             }
 
             // PostgreSQL UPDATE clause
@@ -359,12 +359,12 @@ namespace MiniSqlParser
 
             if (this.ForSqlAccessor && !hasIntoKeyword)
             {
-                this.AddSqlAccessorSyntaxError("SqlPodではREPLACE文のINTOキーワードを省略できません", context);
+                this.AddSqlAccessorSyntaxError("SqlPod不能省略REPLACE语句中的INTO关键字", context);
             }
 
             if (this.ForSqlAccessor && !hasColumnNames)
             {
-                this.AddSqlAccessorSyntaxError("SqlPodではREPLACE文のテーブル列名の指定を省略できません", context);
+                this.AddSqlAccessorSyntaxError("SqlPod不能省略REPLACE语句的表列名指定", context);
             }
 
             ValuesList valuesList = null;
@@ -559,7 +559,7 @@ namespace MiniSqlParser
 
             if (ForSqlAccessor && !hasFromKeyword)
             {
-                this.AddSqlAccessorSyntaxError("SqlPodではDELETE文のFROMキーワードを省略できません", context);
+                this.AddSqlAccessorSyntaxError("SqlPod不能省略DELETE语句中的FROM关键字。", context);
             }
 
             WithClause withNode = null;
@@ -570,7 +570,7 @@ namespace MiniSqlParser
 
             var node = new DeleteStmt(withNode, hasFromKeyword, tableNode, tableNode2, whereNode, comments);
 
-            // DELETE文の先頭コメント、プレースホルダ初期値及びAutoWhere値を設定する
+            // 设定DELETE语句的开头注释、占位符初始值和AutoWhere值
             node.HeaderComment = this.GetHeaderComment(context.Start.TokenIndex);
             node.PlaceHolderAssignComments = this.GetDefaultValuePlaceHolders(context.Start.TokenIndex);
             node.AutoWhere = this.GetHeaderAutoWhere(context.Start.TokenIndex);
@@ -1049,11 +1049,11 @@ namespace MiniSqlParser
             {
                 if (string.IsNullOrEmpty(aliasName))
                 {
-                    this.AddSqlAccessorSyntaxError("SqlPodではFrom句サブクエリに別名の指定が必要です", context);
+                    this.AddSqlAccessorSyntaxError("SqlPod要求From短语子查询指定别名。", context);
                 }
                 else if (hasAs)
                 {
-                    this.AddSqlAccessorSyntaxError("SqlPodではFrom句サブクエリの別名指定にAS句は不要です", context);
+                    this.AddSqlAccessorSyntaxError("SqlPod中From短语子查询的别名指定不需要AS短语", context);
                 }
             }
 
@@ -1185,7 +1185,7 @@ namespace MiniSqlParser
                 {
                     if (this.ForSqlAccessor)
                     {
-                        this.AddSqlAccessorSyntaxError("SqlPodではUSING句は使えません", context);
+                        this.AddSqlAccessorSyntaxError("SqlPod不能使用USING短语。", context);
                     }
                     usingConstraint = (UnqualifiedColumnNames)_stack.Pop();
                 }
@@ -1203,7 +1203,7 @@ namespace MiniSqlParser
 
             if (this.ForSqlAccessor)
             {
-                this.AddSqlAccessorSyntaxError("SqlPodではFROM句でカンマ(,)による結合はできません", context);
+                this.AddSqlAccessorSyntaxError("SqlPod在FROM短语中不能通过逗号(，)进行组合。", context);
             }
 
             var right = (IFromSource)_stack.Pop();
@@ -1229,7 +1229,7 @@ namespace MiniSqlParser
 
             if (this.ForSqlAccessor && hasNatural)
             {
-                this.AddSqlAccessorSyntaxError("SqlPodではNATURALキーワードを使えません", context);
+                this.AddSqlAccessorSyntaxError("SqlPod不能使用NATURAL关键字。", context);
             }
 
             JoinType joinType = JoinType.None;
