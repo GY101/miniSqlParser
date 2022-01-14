@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace MiniSqlParser
 {
     [Serializable]
-    public class CannotBuildASTException : Exception
+    public class CannotBuildASTException : MiniSqlParserException
     {
         public CannotBuildASTException(string message)
           : base(message)

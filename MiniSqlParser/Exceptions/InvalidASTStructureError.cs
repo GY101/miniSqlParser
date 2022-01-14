@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace MiniSqlParser
 {
     [Serializable]
-    public class InvalidASTStructureError : Exception
+    public class InvalidASTStructureError : MiniSqlParserException
     {
         public InvalidASTStructureError(string message)
           : base(message)

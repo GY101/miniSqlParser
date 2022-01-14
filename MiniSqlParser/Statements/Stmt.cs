@@ -13,7 +13,7 @@ namespace MiniSqlParser
         {
             if (separatorCount != comments.Count)
             {
-                throw new CannotBuildASTException("セミコロンの数とコメントリストの要素数が一致していません");
+                throw new CannotBuildASTException("分号的数量和评论列表中的元素数量不匹配。");
             }
             this.StmtSeparators += separatorCount;
             this.Comments.AddRange(comments);

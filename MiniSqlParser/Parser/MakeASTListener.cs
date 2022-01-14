@@ -959,7 +959,7 @@ namespace MiniSqlParser
             }
             else if (hasWildcard)
             {
-                throw new CannotBuildASTException("FROM句が無いためWildcard(*)は使えません");
+                throw new CannotBuildASTException("因为没有FROM句，所以不能使用Wildcard(*)");
             }
 
             ResultColumns results;

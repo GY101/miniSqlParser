@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace MiniSqlParser
 {
     [Serializable]
-    public class CannotStringifierException : Exception
+    public class CannotStringifierException : MiniSqlParserException
     {
         public CannotStringifierException(string message)
           : base(message)

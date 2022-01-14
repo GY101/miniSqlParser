@@ -175,7 +175,7 @@ namespace MiniSqlParser
             // テーブル列名とSELECT句の要素数が異なる場合はエラーとする
             if (this.Columns.Count != singleQuery.Results.Count)
             {
-                throw new InvalidASTStructureError("テーブル列名とSELECT句の要素数が異なります");
+                throw new InvalidASTStructureError("表列名和选择短语的元素数量不同。");
             }
 
             var ret = new Assignments();

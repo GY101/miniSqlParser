@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 namespace MiniSqlParser
 {
     [Serializable]
-    public class SqlSyntaxErrorsException : Exception
+    public class SqlSyntaxErrorsException : MiniSqlParserException
     {
         public string FailedSql { get; set; }
 

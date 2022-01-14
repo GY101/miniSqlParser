@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MiniSqlParser.Exceptions
 {
-    public class ColumnTableNameNotFoundException : Exception
+    public class ColumnTableNameNotFoundException : MiniSqlParserException
     {
         public string FromSql { get; }
         public IEnumerable<string> TableName { get; }

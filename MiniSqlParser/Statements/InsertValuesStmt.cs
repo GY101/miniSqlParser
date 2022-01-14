@@ -145,7 +145,7 @@ namespace MiniSqlParser
             // テーブル列名とVALUES句の要素数が異なる場合はエラーとする
             if (this.Columns.Count != this.ValuesList[index].Count)
             {
-                throw new InvalidASTStructureError("テーブル列名とVALUES句の要素数が異なります");
+                throw new InvalidASTStructureError("VALUES短语和表列名的元素数量不同。");
             }
 
             var ret = new Assignments();
@@ -184,7 +184,7 @@ namespace MiniSqlParser
             if (columnIndex < 0)
             {
                 throw new ArgumentOutOfRangeException("columnName",
-                                                      "指定したテーブル列名はありません");
+                                                      "没有指定的表列名称。");
             }
 
             var ret = new List<Assignment>();

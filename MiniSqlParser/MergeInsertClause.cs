@@ -59,7 +59,7 @@ namespace MiniSqlParser
             // テーブル列名とVALUES句の要素数が異なる場合はエラーとする
             if (this.Columns.Count != this.Values.Count)
             {
-                throw new InvalidASTStructureError("テーブル列名とVALUES句の要素数が異なります");
+                throw new InvalidASTStructureError("VALUES短语和表列名的元素数量不同。");
             }
 
             var ret = new Assignments();
